@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.1",
     "@heroicons/react": "^2.2.0",
     "aos": "^2.3.4",
     "lucide-react": "^0.488.0",
