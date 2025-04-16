@@ -1,6 +1,6 @@
 import Logo from "./Logo";
 
-export default function Hero() { return ( <header className="relative text-center pt-32 pb-20 sm:pb-24 md:pb-28 px-4 sm:px-6 bg-dark text-white overflow-hidden"> {/* Fundo com blobs tech visíveis */} <div className="absolute inset-0 -z-10 pointer-events-none"> <div className="absolute top-[-80px] left-[-80px] w-[280px] h-[280px] bg-primary opacity-50 blur-2xl rounded-full" /> <div className="absolute bottom-[-80px] right-[-80px] w-[280px] h-[280px] bg-secondary opacity-40 blur-2xl rounded-full" /> </div>
+export default function Hero() { return ( <header id="hero" className="relative text-center pt-32 pb-20 sm:pb-24 md:pb-28 px-4 sm:px-6 bg-dark text-white overflow-hidden" > {/* Fundo com blobs tech visíveis */} <div className="absolute inset-0 -z-10 pointer-events-none"> <div className="absolute top-[-80px] left-[-80px] w-[280px] h-[280px] bg-primary opacity-50 blur-2xl rounded-full" /> <div className="absolute bottom-[-80px] right-[-80px] w-[280px] h-[280px] bg-secondary opacity-40 blur-2xl rounded-full" /> </div>
 
   {/* Logo */}
   <div

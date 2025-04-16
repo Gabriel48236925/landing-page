@@ -1,6 +1,6 @@
 import { ClipboardDocumentCheckIcon, SparklesIcon, RocketLaunchIcon, } from "@heroicons/react/24/outline";
 
-export default function ComoFunciona() { return ( <section className="py-24 px-4 sm:px-6 md:px-8 text-white bg-gradient-to-b from-dark to-black"> <div className="max-w-6xl mx-auto"> {/* Título */} <h2 className="text-3xl md:text-4xl font-bold mb-16 text-primary text-center" data-aos="fade-up" > Como Funciona? </h2>
+export default function ComoFunciona() { return ( <section id="como-funciona" className="py-24 px-4 sm:px-6 md:px-8 text-white bg-gradient-to-b from-dark to-black" > <div className="max-w-6xl mx-auto"> {/* Título */} <h2 className="text-3xl md:text-4xl font-bold mb-16 text-primary text-center" data-aos="fade-up" > Como Funciona? </h2>
 
     {/* Etapas */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

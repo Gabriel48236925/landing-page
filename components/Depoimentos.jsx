@@ -1,17 +1,16 @@
 import { Swiper, SwiperSlide } from "swiper/react"; import { Navigation, Pagination } from "swiper/modules"; import "swiper/css"; import "swiper/css/navigation"; import "swiper/css/pagination";
 
-export default function Depoimentos() { return ( <section className="py-24 px-4 sm:px-6 md:px-8 bg-dark text-white relative"> <div className="max-w-4xl mx-auto text-center"> <h2 className="text-3xl md:text-4xl font-bold mb-12 text-primary" data-aos="fade-up" > Depoimentos reais </h2>
+export default function Depoimentos() { return ( <section id="depoimentos" className="py-24 px-4 sm:px-6 md:px-8 bg-dark text-white relative" > <div className="max-w-4xl mx-auto text-center"> <h2 className="text-3xl md:text-4xl font-bold mb-12 text-primary" data-aos="fade-up" > Depoimentos reais </h2>
 
-    <Swiper
-      modules={[Navigation, Pagination]}
-      spaceBetween={24}
-      slidesPerView={1}
-      navigation
-      pagination={{ clickable: true }}
-      className="relative"
-      data-aos="fade-up"
-      data-aos-delay="100"
-    >
+<Swiper
+  modules={[Pagination]}
+  spaceBetween={24}
+  slidesPerView={1}
+  pagination={{ clickable: true }}
+  className="relative"
+  data-aos="fade-up"
+  data-aos-delay="100"
+>
       {/* Slide 1 */}
       <SwiperSlide>
         <div className="bg-zincOverlay backdrop-blur-md border border-zinc-700 rounded-xl p-8 text-left shadow-lg">
@@ -43,7 +42,7 @@ export default function Depoimentos() { return ( <section className="py-24 px-4 
       </SwiperSlide>
     </Swiper>
 
-    {/* Estilo embutido para as setas do Swiper */}
+    {/* Estilos das setas */}
     <style jsx global>{`
       .swiper-button-prev,
       .swiper-button-next {
@@ -78,7 +77,6 @@ export default function Depoimentos() { return ( <section className="py-24 px-4 
         .swiper-button-prev {
           left: -20px !important;
         }
-
         .swiper-button-next {
           right: -20px !important;
         }
