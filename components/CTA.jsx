@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/Lib/supabase";
 
 export default function CTA() {
   const [isOpen, setIsOpen] = useState(false);
