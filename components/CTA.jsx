@@ -21,22 +21,30 @@ export default function CTA() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const { error } = await supabase.from("Formulário").insert([
-        {
-          nome: form.nome,
-          negocio: form.negocio,
-          objetivo: form.objetivo,
-          publico: form.publico,
-          cores: form.cores,
-          contato: form.contato,
-          secoes: form.secoes,
-        },
-      ]);
-
+      // Envia para o Supabase
+      const { error } = await supabase.from("Formulário").insert([{
+        nome: form.nome,
+        negocio: form.negocio,
+        objetivo: form.objetivo,
+        publico: form.publico,
+        cores: form.cores,
+        contato: form.contato,
+        secoes: form.secoes,
+      }]);
+  
       if (error) throw error;
-
+  
+      // Envia para o Webhook do Zapier
+      await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+  
       alert("Formulário enviado com sucesso!");
       setForm({
         nome: "",
@@ -53,7 +61,7 @@ export default function CTA() {
       alert("Erro ao enviar. Tente novamente.");
     }
   };
-
+  
   return (
     <section
       id="cta"
