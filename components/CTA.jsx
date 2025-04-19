@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react";
-import { supabase } from "../lib/supabase";
+import { supabase } from "@/lib/supabase";
 
 export default function CTA() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,24 +21,30 @@ export default function CTA() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // 1. Envia para o Supabase
-      const { error } = await supabase.from("Formulário").insert([form]);
+      // Envia para o Supabase
+      const { error } = await supabase.from("Formulário").insert([{
+        nome: form.nome,
+        negocio: form.negocio,
+        objetivo: form.objetivo,
+        publico: form.publico,
+        cores: form.cores,
+        contato: form.contato,
+        secoes: form.secoes,
+      }]);
+  
       if (error) throw error;
-
-      // 2. Envia para o Zapier
-      const res = await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
+  
+      // Envia para o Webhook do Zapier
+      await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(form),
       });
-
-      // Mesmo que o Zapier falhe, os dados já estão salvos no Supabase
-      if (!res.ok) {
-        console.warn("Erro ao enviar para o Zapier:", await res.text());
-      }
-
+  
       alert("Formulário enviado com sucesso!");
       setForm({
         nome: "",
@@ -51,11 +57,11 @@ export default function CTA() {
       });
       setIsOpen(false);
     } catch (err) {
-      console.error("Erro ao enviar:", err.message);
+      console.error("Erro ao enviar:", err);
       alert("Erro ao enviar. Tente novamente.");
     }
   };
-
+  
   return (
     <section
       id="cta"
@@ -72,8 +78,7 @@ export default function CTA() {
       >
         Receba uma landing page completa com{" "}
         <span className="text-secondary">copy profissional</span>, design
-        validado e <span className="text-secondary">automação com IA</span> — em
-        até 5 dias úteis.
+        validado e <span className="text-secondary">automação com IA</span> — em até 5 dias úteis.
       </p>
 
       <div
@@ -129,13 +134,15 @@ export default function CTA() {
                 },
               ].map((field) => (
                 <div key={field.name}>
-                  <label className="block text-sm mb-1 text-white">{field.label}</label>
+                  <label className="block text-sm mb-1 text-white">
+                    {field.label}
+                  </label>
                   <input
                     name={field.name}
                     type="text"
                     value={form[field.name]}
                     onChange={handleChange}
-                    placeholder={field.placeholder}
+                    placeholder={field.placeholder || ""}
                     className="w-full bg-zinc-800 text-white rounded-md p-2 text-sm"
                     required={field.name === "nome"}
                   />
