@@ -21,30 +21,25 @@ export default function CTA() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      // Envia para o Supabase
-      const { error } = await supabase.from("Formulário").insert([{
-        nome: form.nome,
-        negocio: form.negocio,
-        objetivo: form.objetivo,
-        publico: form.publico,
-        cores: form.cores,
-        contato: form.contato,
-        secoes: form.secoes,
-      }]);
-  
+      // 1. Envia para o Supabase
+      const { error } = await supabase.from("Formulário").insert([form]);
       if (error) throw error;
-  
-      // Envia para o Webhook do Zapier
-      await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-  
+
+      // 2. Tenta enviar para o Zapier
+      try {
+        await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+      } catch (zapError) {
+        console.warn("Erro ao enviar para Zapier:", zapError.message);
+      }
+
       alert("Formulário enviado com sucesso!");
       setForm({
         nome: "",
@@ -57,20 +52,17 @@ export default function CTA() {
       });
       setIsOpen(false);
     } catch (err) {
-      console.error("Erro ao enviar:", err);
+      console.error("Erro ao salvar no Supabase:", err.message);
       alert("Erro ao enviar. Tente novamente.");
     }
   };
-  
+
   return (
     <section
       id="cta"
       className="py-20 px-4 sm:px-6 bg-zincOverlay backdrop-blur-md border border-zinc-700 rounded-2xl max-w-4xl mx-auto text-center shadow-lg"
     >
-      <h2
-        className="text-3xl md:text-4xl font-bold mb-6 text-primary"
-        data-aos="fade-up"
-      >
+      <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary" data-aos="fade-up">
         Pronto para tirar seu projeto do papel?
       </h2>
 
@@ -138,9 +130,7 @@ export default function CTA() {
                 },
               ].map((field) => (
                 <div key={field.name}>
-                  <label className="block text-sm mb-1 text-white">
-                    {field.label}
-                  </label>
+                  <label className="block text-sm mb-1 text-white">{field.label}</label>
                   <input
                     name={field.name}
                     type="text"
