@@ -27,19 +27,18 @@ export default function CTA() {
       const { error } = await supabase.from("Formulário").insert([form]);
       if (error) throw error;
 
-      // 2. Tenta enviar para o Zapier
-      try {
-        await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(form),
-        });
-      } catch (zapError) {
-        console.warn("Erro ao enviar para Zapier:", zapError.message);
+      // 2. Envia para Zapier com verificação de resposta
+      const zapierRes = await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!zapierRes.ok) {
+        throw new Error(`Zapier erro: ${zapierRes.statusText}`);
       }
 
+      // ✅ Se chegou até aqui, tudo foi enviado
       alert("Formulário enviado com sucesso!");
       setForm({
         nome: "",
@@ -52,7 +51,7 @@ export default function CTA() {
       });
       setIsOpen(false);
     } catch (err) {
-      console.error("Erro ao salvar no Supabase:", err.message);
+      console.error("Erro ao enviar:", err.message);
       alert("Erro ao enviar. Tente novamente.");
     }
   };
