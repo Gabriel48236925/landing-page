@@ -20,7 +20,9 @@ export default function CTA() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Formulário enviado com sucesso!\n\n" + JSON.stringify(form, null, 2));
+
+    // Apenas simula envio
+    alert("Formulário enviado com sucesso!");
     setForm({
       nome: "",
       negocio: "",
@@ -49,8 +51,7 @@ export default function CTA() {
       >
         Receba uma landing page completa com{" "}
         <span className="text-secondary">copy profissional</span>, design
-        validado e <span className="text-secondary">automação com IA</span> — em
-        até 5 dias úteis.
+        validado e <span className="text-secondary">automação com IA</span> — em até 5 dias úteis.
       </p>
 
       <div
@@ -74,7 +75,6 @@ export default function CTA() {
         </button>
       </div>
 
-      {/* Modal com formulário */}
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
@@ -106,9 +106,7 @@ export default function CTA() {
                 },
               ].map((field) => (
                 <div key={field.name}>
-                  <label className="block text-sm mb-1 text-white">
-                    {field.label}
-                  </label>
+                  <label className="block text-sm mb-1 text-white">{field.label}</label>
                   <input
                     name={field.name}
                     type="text"
