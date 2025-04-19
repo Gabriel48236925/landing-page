@@ -28,10 +28,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (apenas os necessários são incluídos)
-.env             # ignora .env raiz
-.env.production  # ignora .env.production
-!.env.local      # inclui .env.local no git (necessário para Vercel)
+# env files (controle de exposição)
+.env
+.env.production
+!.env.local   # usado localmente em dev. Em produção, configure via Vercel UI
 
 # vercel
 .vercel

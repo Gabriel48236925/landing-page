@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react";
-import { supabase } from "@/Lib/supabase";
+import { supabase } from "@/lib/supabase";
 
 export default function CTA() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,23 +27,16 @@ export default function CTA() {
       const { error } = await supabase.from("Formulário").insert([form]);
       if (error) throw error;
 
-      // 2. Envia para Zapier com os campos "achatados"
-      const zapierRes = await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
+      // 2. Envia para o Zapier
+      const res = await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nome: form.nome,
-          negocio: form.negocio,
-          objetivo: form.objetivo,
-          publico: form.publico,
-          cores: form.cores,
-          contato: form.contato,
-          secoes: form.secoes,
-        }),
+        body: JSON.stringify(form),
       });
 
-      if (!zapierRes.ok) {
-        throw new Error(`Zapier erro: ${zapierRes.statusText}`);
+      // Mesmo que o Zapier falhe, os dados já estão salvos no Supabase
+      if (!res.ok) {
+        console.warn("Erro ao enviar para o Zapier:", await res.text());
       }
 
       alert("Formulário enviado com sucesso!");
@@ -104,6 +97,7 @@ export default function CTA() {
         </button>
       </div>
 
+      {/* Modal com formulário */}
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
