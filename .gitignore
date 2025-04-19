@@ -1,41 +1,49 @@
-# dependencies
+# Node dependencies
 /node_modules
+
+# Yarn Plug'n'Play
 /.pnp
 .pnp.*
+
+# Yarn v2+ files
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# Test coverage
 /coverage
 
-# next.js
+# Next.js build outputs
 /.next/
-/out/
+out/
 
-# production
-/build
+# Production build
+/build/
 
-# misc
+# System files
 .DS_Store
+Thumbs.db
+
+# Sensitive files
 *.pem
 
-# debug
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
-# env files (controle de exposição)
+# Env files
 .env
 .env.production
-!.env.local   # usado localmente em dev. Em produção, configure via Vercel UI
+.env.development
+!.env.local  # necessário em dev local, mas ignorado no deploy
 
-# vercel
+# Vercel deployment
 .vercel
 
-# typescript
+# TypeScript (caso eu vá usar no futuro)
 *.tsbuildinfo
 next-env.d.ts

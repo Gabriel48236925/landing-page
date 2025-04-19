@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react";
-import { supabase } from "@/lib/supabase";
 
 export default function CTA() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,49 +18,21 @@ export default function CTA() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  
-    try {
-      // Envia para o Supabase
-      const { error } = await supabase.from("Formulário").insert([{
-        nome: form.nome,
-        negocio: form.negocio,
-        objetivo: form.objetivo,
-        publico: form.publico,
-        cores: form.cores,
-        contato: form.contato,
-        secoes: form.secoes,
-      }]);
-  
-      if (error) throw error;
-  
-      // Envia para o Webhook do Zapier
-      await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-  
-      alert("Formulário enviado com sucesso!");
-      setForm({
-        nome: "",
-        negocio: "",
-        objetivo: "",
-        publico: "",
-        cores: "",
-        contato: "",
-        secoes: "",
-      });
-      setIsOpen(false);
-    } catch (err) {
-      console.error("Erro ao enviar:", err);
-      alert("Erro ao enviar. Tente novamente.");
-    }
+    alert("Formulário enviado com sucesso!\n\n" + JSON.stringify(form, null, 2));
+    setForm({
+      nome: "",
+      negocio: "",
+      objetivo: "",
+      publico: "",
+      cores: "",
+      contato: "",
+      secoes: "",
+    });
+    setIsOpen(false);
   };
-  
+
   return (
     <section
       id="cta"
@@ -78,7 +49,8 @@ export default function CTA() {
       >
         Receba uma landing page completa com{" "}
         <span className="text-secondary">copy profissional</span>, design
-        validado e <span className="text-secondary">automação com IA</span> — em até 5 dias úteis.
+        validado e <span className="text-secondary">automação com IA</span> — em
+        até 5 dias úteis.
       </p>
 
       <div
