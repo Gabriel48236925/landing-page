@@ -27,18 +27,25 @@ export default function CTA() {
       const { error } = await supabase.from("Formulário").insert([form]);
       if (error) throw error;
 
-      // 2. Envia para Zapier com verificação de resposta
+      // 2. Envia para Zapier com os campos "achatados"
       const zapierRes = await fetch("https://hooks.zapier.com/hooks/catch/22567975/2xm6j88/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          nome: form.nome,
+          negocio: form.negocio,
+          objetivo: form.objetivo,
+          publico: form.publico,
+          cores: form.cores,
+          contato: form.contato,
+          secoes: form.secoes,
+        }),
       });
 
       if (!zapierRes.ok) {
         throw new Error(`Zapier erro: ${zapierRes.statusText}`);
       }
 
-      // ✅ Se chegou até aqui, tudo foi enviado
       alert("Formulário enviado com sucesso!");
       setForm({
         nome: "",
@@ -97,7 +104,6 @@ export default function CTA() {
         </button>
       </div>
 
-      {/* Modal com formulário */}
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
