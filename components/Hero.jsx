@@ -37,7 +37,7 @@ export default function Hero() { return ( <header id="hero" className="relative 
     data-aos="zoom-in"
     data-aos-delay="300"
   >
-    Falar no WhatsApp
+    Adquirir agora
   </a>
 
   {/* Mockup da Página */}

@@ -21,7 +21,6 @@ export default function CTA() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Apenas simula envio
     alert("Formulário enviado com sucesso!");
     setForm({
       nome: "",
@@ -38,7 +37,7 @@ export default function CTA() {
   return (
     <section
       id="cta"
-      className="py-20 px-4 sm:px-6 bg-zincOverlay backdrop-blur-md border border-zinc-700 rounded-2xl max-w-4xl mx-auto text-center shadow-lg"
+      className="py-20 px-4 sm:px-6 mb-24 bg-zincOverlay backdrop-blur-md border border-zinc-700 rounded-2xl max-w-4xl mx-auto text-center shadow-lg"
     >
       <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary" data-aos="fade-up">
         Pronto para tirar seu projeto do papel?
