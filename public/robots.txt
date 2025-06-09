@@ -1,0 +1,24 @@
+# robots.txt para codecopystudioai.com.br
+# Criado em 2025-06-10 – Otimizado para Google, Bing e SEO técnico
+
+User-agent: *
+Allow: /
+
+# Bloquear arquivos técnicos que não devem ser indexados (Next.js padrão)
+Disallow: /_next/
+Disallow: /static/
+Disallow: /api/
+
+# Bloquear URLs duplicadas com parâmetros (por precaução)
+Disallow: /*?*
+Disallow: /*&*
+
+# Bloquear páginas de erro se existirem (404, 500 customizadas)
+Disallow: /404
+Disallow: /500
+
+# Sitemap oficial
+Sitemap: https://codecopystudioai.com.br/sitemap.xml
+
+# Política de indexação rápida
+Crawl-delay: 2
