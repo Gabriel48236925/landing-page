@@ -19,7 +19,7 @@ const depoimentos = [
 export default function Depoimentos() {
   const [index, setIndex] = useState(0);
 
-  // Autoplay: troca a cada 6s
+  // Autoplay a cada 6 segundos
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % depoimentos.length);
@@ -42,7 +42,7 @@ export default function Depoimentos() {
     >
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-primary">
-          Depoimentos reais
+          Depoimentos reais de clientes
         </h2>
 
         <div className="relative">
@@ -58,11 +58,22 @@ export default function Depoimentos() {
               <p className="text-lg text-gray-200 italic mb-4">
                 “{depoimentos[index].texto}”
               </p>
-              <p className="text-sm text-gray-400">— {depoimentos[index].autor}</p>
+              <p className="text-sm text-gray-400">
+                — {depoimentos[index].autor}
+              </p>
+
+              {/* Exemplo futuro de imagem com alt otimizado para SEO */}
+              {/*
+              <img
+                src="/images/clientes/cliente1.jpg"
+                alt="Carla, designer freelancer satisfeita com landing page criada pela Code&Copy Studio AI"
+                className="mt-4 rounded-full w-12 h-12 object-cover"
+              />
+              */}
             </motion.div>
           </AnimatePresence>
 
-          {/* Navegação */}
+          {/* Navegação dos depoimentos */}
           <div className="mt-6 flex justify-center gap-6">
             <button
               onClick={handlePrev}

@@ -20,8 +20,8 @@ export default function CTA() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     alert("Formulário enviado com sucesso!");
+
     setForm({
       nome: "",
       negocio: "",
@@ -48,9 +48,9 @@ export default function CTA() {
         data-aos="fade-up"
         data-aos-delay="100"
       >
-        Receba uma landing page completa com{" "}
-        <span className="text-secondary">copy profissional</span>, design
-        validado e <span className="text-secondary">automação com IA</span> — em até 5 dias úteis.
+        Receba uma landing page com{" "}
+        <span className="text-secondary">copy profissional</span>, design validado e{" "}
+        <span className="text-secondary">automação com IA</span> — em até 5 dias úteis.
       </p>
 
       <div
@@ -61,12 +61,14 @@ export default function CTA() {
         <a
           href="https://wa.me/5549999109573?text=Quero%20criar%20minha%20landing%20page"
           target="_blank"
+          rel="noopener noreferrer"
           className="bg-primary hover:bg-green-400 hover:scale-105 transition-all duration-300 text-black px-6 py-3 rounded-md font-semibold text-lg shadow-md hover:ring-2 hover:ring-green-300"
         >
           Falar no WhatsApp
         </a>
 
         <button
+          type="button"
           onClick={() => setIsOpen(true)}
           className="border border-primary text-primary px-6 py-3 rounded-md font-semibold text-lg hover:bg-primary hover:text-black transition-all duration-300"
         >
@@ -74,14 +76,15 @@ export default function CTA() {
         </button>
       </div>
 
+      {/* Modal */}
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="relative bg-zinc-900 border border-zinc-700 rounded-xl max-w-lg w-full mx-auto p-6 shadow-xl">
+          <Dialog.Panel className="relative bg-zinc-900 border border-zinc-700 rounded-xl max-w-lg w-full mx-auto p-6 shadow-xl text-left">
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-3 right-3 text-gray-400 hover:text-white"
-              aria-label="Fechar"
+              aria-label="Fechar formulário"
             >
               <X className="w-5 h-5" />
             </button>
@@ -90,30 +93,35 @@ export default function CTA() {
               Briefing do Projeto
             </Dialog.Title>
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-left">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {[
-                { name: "nome", label: "Nome da empresa:" },
-                { name: "negocio", label: "Descrição do negócio:" },
-                { name: "objetivo", label: "Objetivo do site:" },
-                { name: "publico", label: "Público-alvo:" },
-                { name: "cores", label: "Cores preferidas:" },
-                { name: "contato", label: "Informações de contato:" },
+                { name: "nome", label: "Nome da empresa", autoComplete: "organization" },
+                { name: "negocio", label: "Descrição do negócio", autoComplete: "off" },
+                { name: "objetivo", label: "Objetivo do site", autoComplete: "off" },
+                { name: "publico", label: "Público-alvo", autoComplete: "off" },
+                { name: "cores", label: "Cores preferidas", autoComplete: "off" },
+                { name: "contato", label: "Informações de contato", autoComplete: "email" },
                 {
                   name: "secoes",
-                  label: "Seções desejadas:",
+                  label: "Seções desejadas",
                   placeholder: "Ex: Sobre, Serviços, Depoimentos",
+                  autoComplete: "off",
                 },
               ].map((field) => (
                 <div key={field.name}>
-                  <label className="block text-sm mb-1 text-white">{field.label}</label>
+                  <label htmlFor={field.name} className="block text-sm mb-1 text-white">
+                    {field.label}
+                  </label>
                   <input
+                    id={field.name}
                     name={field.name}
                     type="text"
+                    required={field.name === "nome"}
                     value={form[field.name]}
                     onChange={handleChange}
                     placeholder={field.placeholder || ""}
+                    autoComplete={field.autoComplete}
                     className="w-full bg-zinc-800 text-white rounded-md p-2 text-sm"
-                    required={field.name === "nome"}
                   />
                 </div>
               ))}
